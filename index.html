@@ -8,8 +8,22 @@
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
   </head>
   <body>
+
+    <div class = "zip">
+        <textarea class = "location" id = "zip_txt">Enter your zipcode</textarea>
+        <button id = "zip_button">Fetch weather</button>
+    </div>
+
     
+
+    <div class = "forecasts">
+        <div class = "forecast" id = "temp">temp</div>
+        <div class = "forecast" id = "weather">weather</div>
+        <div class = "forecast" id = "cloud-cover">cloud-cover</div>
+    </div>
+
     <div id="map" class="map"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src = "app.js"></script>
   </body>
 </html>
