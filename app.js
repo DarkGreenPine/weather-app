@@ -33,28 +33,30 @@ var map = new ol.Map({
   map.addLayer(weather);
 
 
-var temp;
+var tempData;
+var forecastData;   
+var cloudData;
+var weatherData;
 
-// gets the zipcode and uses it to send a query for the location's weather
+
+  // gets the zipcode and uses it to send a query for the location's weather
 document.getElementById('zip_button').onclick = function() {
+    
     // get the zip, send query and display
     weatherUrl = baseWeatherUrl + document.getElementById('zip_txt').value + endWeatherUrl;
 
     // make JSON object that will be filled with weather data after location is picked
-    $.getJSON(weatherUrl, function(data) {
-      temp = data["weather"]["temp"];
-    })
+  $.getJSON(weatherUrl, function(data) {
+      
+    weatherData = data;
+    tempData = weatherData.main.temp;
+    forecastData = weatherData.weather[0].main;
+    cloudData = weatherData.weather[0].description;
+  })
 
-    alert(temp);
-   //weatherInfo = getData;
-
-    document.getElementById('temp').innerHTML = temp;
-
+  if (weatherData) {
+    document.getElementById('temp').innerHTML = tempData + '°' + 'F';
+    document.getElementById('weather').innerHTML = forecastData;
+    document.getElementById('cloud-cover').innerHTML = cloudData;
+ }
 };
-
-/*
-// adds json weather data into weatherInfo
-function getData(data) {
-  weatherInfo = data;
-}
-*/
