@@ -4,15 +4,34 @@
     
     <meta charset = "utf-8">
 	<title>Weather App</title>
-	<link rel = "stylesheet" href = "styles.css">
-    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+  <link rel = "stylesheet" href = "styles.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+  <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
   </head>
   <body>
 
+  <div class = "sidenav">
     <div class = "zip">
         <textarea class = "location" id = "zip_txt">Enter your zipcode</textarea>
         <button id = "zip_button">Fetch weather</button>
     </div>
+
+    <p id = "select-map">Select a Weather Map Display</p>
+
+    <div class = "map-choices">
+      <div class = "choice" id = "temp_new"> 
+				<img src = "images/thermometer.png">
+			</div>
+			
+			<div class = "choice" id = "precipitation_new"> 
+				<img src = "images/raindrop.png">
+			</div>
+			
+			<div class = "choice" id = "clouds_new"> 
+				<img src = "images/cloud.png" alt>
+			</div>
+    </div>
+  </div>
 
     
 
