@@ -7,13 +7,13 @@ var cloudsNew = 'clouds_new';
 
 // url components for querying for displayed weather info
 var zipcode;
-var baseWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-var endWeatherUrl = '&units=imperial&appid=df2de3900e635249f5651233e62fd47c';
+var baseWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?zip=";
+var endWeatherUrl = "&units=imperial&appid=df2de3900e635249f5651233e62fd47c";
 
 // used with addWeatherInfo function
+var city;
 var tempData;
 var forecastData;   
-var cloudData;
 var weatherData;
 var lon;
 var lat;
@@ -60,28 +60,33 @@ function addWeatherMap(weatherType) {
 
 // sends query to openweathermap and then displays the returned info
 function addWeatherInfo() {
+  // get the zip
+  weatherUrl = baseWeatherUrl + document.getElementById("zip_txt").value + endWeatherUrl;
 
-   // get the zip
-   weatherUrl = baseWeatherUrl + document.getElementById('zip_txt').value + endWeatherUrl;
+  // makes a query and waits for it to be returned before continuing (async:false) and fills variables with the data
+  $.ajax({
+    url: weatherUrl,
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      weatherData = data;
+      city = weatherData.name;
+      tempData = weatherData.main.temp;
+      forecastData = weatherData.weather[0].description;
+      lon = weatherData.coord.lon;
+      lat = weatherData.coord.lat;
+    }
+  })
 
-   // make JSON object that will be filled with weather data after location is picked
- $.getJSON(weatherUrl, function(data) {
-  
-  weatherData = data;
-  tempData = weatherData.main.temp;
-  forecastData = weatherData.weather[0].main;
-  cloudData = weatherData.weather[0].description;
-  lon = weatherData.coord.lon;
-  lat = weatherData.coord.lat;
- })
-
- if (weatherData) {
-   document.getElementById('temp').innerHTML = tempData + '°' + 'F';
-   document.getElementById('weather').innerHTML = forecastData;
-   document.getElementById('cloud-cover').innerHTML = cloudData;
-   map.getView().setCenter(ol.proj.fromLonLat([lon, lat])); // sets the center of the map to the user entered zip code(lon/lat)
+  // set html elements to the returned info
+  if (weatherData) {
+    document.getElementById('city').innerHTML = city;
+    document.getElementById('temp').innerHTML = tempData + '°' + 'F';
+    document.getElementById('weather').innerHTML = forecastData;
+    map.getView().setCenter(ol.proj.fromLonLat([lon, lat])); // sets the center of the map to the user entered zip code(lon/lat)
+  }
 }
-}
+
 
 
 function main() {
